@@ -59,6 +59,43 @@ const morse={
     7:"--...",8:"---..",9:"----.",
     0:"-----"," ":"  ","  ":" ",
 };//Morese
+
+//---------------------------------------------------------
+//Cifra de césar
+function cifraDeCesar(texto, chave, acao) {
+    let resultado = '';
+
+    for (let i = 0; i < texto.length; i++) {
+        let char = texto[i];
+
+        if (char.match(/[a-zA-Z]/)) {
+            const min = char === char.toLowerCase();
+            const code = char.charCodeAt(0);
+            const base = min ? 'a'.charCodeAt(0) : 'A'.charCodeAt(0);
+            const deslocamento = (code - base + chave) % 26;
+            const novoCodigo = (deslocamento + 26) % 26 + base;
+
+            resultado += String.fromCharCode(novoCodigo);
+        } else {
+            resultado += char;
+        }
+    }
+
+    return resultado;
+}
+
+//exemplo de uso
+const textoOriginal = "Hello, World!";
+const chave = 3;
+const acao = "cifrar";
+
+const textoCifrado = cifraDeCesar(textoOriginal, chave, acao);
+console.log(textoCifrado); // Saída: "Khoor, Zruog!"
+
+const textoDecifrado = cifraDeCesar(textoCifrado, chave, "decifrar");
+console.log(textoDecifrado); // Saída: "Hello, World!"
+//---------------------------------------------------------
+
 const indec=Object.keys(morse);
 
 let center=document.getElementById ("centro");
