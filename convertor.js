@@ -1,7 +1,7 @@
 function generateC() {
     let pass=[];
     let comp=[];
-    let str='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$';
+    let str='abcdefghijklmnopqrstuvwxyz0123456789';
     let cont=0;
     do{
         const char = Math.floor(Math.random()* str.length);
@@ -119,26 +119,26 @@ function addcard(resposta) {
     addLista.classList="card is-dark";
     addLista.innerText=resposta;
     addLista.id="item"+k;
-    const lista=document.getElementById("sla").appendChild(addLista);
+    const lista=document.getElementById("cards").appendChild(addLista);
     
     const addBnt=document.createElement("button");
     addBnt.id=addLista.id;
-    addLista.innerHTML=addLista.innerHTML+'<button id='+addBnt.id+" "+'onclick=remove_botao("'+addBnt.id+'") class="remove-btn">Remover</button>';
+    addBnt.name="botaoRemove";
+    addBnt.classList="remove-btn";
+    addBnt.innerText="Remover";
+    addBnt.addEventListener("click",function() {
+        addLista.remove(addBnt.id);
+    })//Remoção do card
+    addLista.appendChild(addBnt);
 };//Adição de card
-
-function remove_botao(id){
-    const card=document.getElementById(id);
-    card.remove(card)
-};//Remoção de card
-
-
 
 
 const btn=document.getElementById("btnEnviar");
 btn.addEventListener("click",function(){
     const select=document.getElementById("translate")
     const tipo=select.options[select.selectedIndex].value;
-    const texto=document.getElementById("text").value;
+    const text=document.getElementById("text").value;
+    const texto=text.toLowerCase();
     console.log(tipo, texto);
     if(tipo==1&&cont==1){
         const conversc=texto.split("");
